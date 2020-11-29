@@ -1,3 +1,7 @@
+# FGSM Attacker
+# Reference: https://colab.research.google.com/drive/1ePbuJwBwVsHkfztpXKjKuqaEZ3h27F_A
+# Written by Nitrogens
+
 import torch
 
 import torch.nn.functional as F

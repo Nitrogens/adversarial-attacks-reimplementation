@@ -5,3 +5,4 @@ Reimplementations of some adversarial attack algorithms.
 ## Algorithms
 
 * FGSM
+* DeepFool

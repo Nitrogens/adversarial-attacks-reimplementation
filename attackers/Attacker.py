@@ -4,6 +4,8 @@ import torch
 import torchvision.models as models
 import torchvision.transforms as transforms
 
+from tqdm import tqdm
+
 
 device = torch.device('cuda')
 
@@ -39,7 +41,7 @@ class Attacker(object):
             self.count[k] = 0
 
         # Process datas
-        for (data, target) in self.loader:
+        for (data, target) in tqdm(self.loader, ascii=True, desc="Processing images"):
             data, target = data.to(device), target.to(device)
             data_raw = data
             data.requires_grad = True
