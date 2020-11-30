@@ -32,7 +32,7 @@ class DeepFoolAttacker(Attacker):
         
         image = image.cuda()
         self.model = self.model.cuda()
-        x = Variable(copy.deepcopy(image), requires_grad=True)
+        x = Variable(image.clone(), requires_grad=True)
         res = self.model.forward(x)
         label = pred_correct
 
@@ -73,4 +73,4 @@ class DeepFoolAttacker(Attacker):
         
         # print((x - image).data)
         
-        return x.data
+        return x.data, (i < max_iter - 1)
