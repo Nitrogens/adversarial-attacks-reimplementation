@@ -35,6 +35,7 @@ class Attacker(object):
     def get_accuracy(self):
         return self.count['success'] / (self.count['wrong'] + self.count['success'] + self.count['fail'])
 
+    @staticmethod
     def generate_perturbed_image(self, image, pred, pred_correct, params):
         pass
 
@@ -58,17 +59,19 @@ class Attacker(object):
                 continue
 
             # Otherwise, add adversarial perturbation to the corresponding image
-            perturbed_data = self.generate_perturbed_image(self, data, pred, target, params)
+            perturbed_data, _ = self.generate_perturbed_image(self, data, pred, target, params)
 
-            target_perturbed, _ = self.model(perturbed_data)
+            target_perturbed = self.model(perturbed_data.type(torch.cuda.FloatTensor))
             pred_perturbed = target_perturbed.max(1, keepdim=True)[1]
 
             if target.item() == pred_perturbed.item():
                 # Attack failed
                 self.count['fail'] += 1
+                # print("\nfail")
             else:
                 # Attack successfully
                 self.count['success'] += 1
+                # print("\nsuccess")
 
     def generate_universal_pert(self, params):
         pass

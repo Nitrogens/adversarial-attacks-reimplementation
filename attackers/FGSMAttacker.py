@@ -16,6 +16,7 @@ class FGSMAttacker(Attacker):
     def __init__(self, dataset, model=models.vgg16(pretrained=True)):
         super().__init__(dataset, model)
 
+    @staticmethod
     def generate_perturbed_image(self, image, pred, pred_correct, params):
         loss = F.nll_loss(pred, pred_correct)
         self.model.zero_grad()
