@@ -6,3 +6,8 @@ Reimplementations of some adversarial attack algorithms.
 
 * FGSM
 * DeepFool
+* Universal Adversarial Perturbation
+* Adversarial Patch
+* C&W L_2
+* C&W L_0
+
