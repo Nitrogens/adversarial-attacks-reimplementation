@@ -19,16 +19,16 @@ from tqdm import tqdm
 from .Attacker import Attacker
 
 
-def transform_inv(image, val_max=1.0, val_min=0.0):
-    fac_mul = (val_max - val_min) / 2
-    fac_add = (val_max + val_min) / 2
-    return (image - fac_add) / fac_mul * 0.999999
+def transform_inv(image, val_max=3.0, val_min=-3.0):
+    fac_mul = (val_max - val_min) / 2.0
+    fac_add = (val_max + val_min) / 2.0
+    return torch.atanh((image - fac_add) / fac_mul * 0.999999)
 
 
-def transform(image, val_max=1.0, val_min=0.0):
-    fac_mul = (val_max - val_min) / 2
-    fac_add = (val_max + val_min) / 2
-    return image * fac_mul + fac_add
+def transform(image, val_max=3.0, val_min=-3.0):
+    fac_mul = (val_max - val_min) / 2.0
+    fac_add = (val_max + val_min) / 2.0
+    return torch.tanh(image) * fac_mul + fac_add
 
 
 def compare(output, target, params):
@@ -71,6 +71,7 @@ class CWL2Attacker(Attacker):
                 x = image.clone().cuda()
                 w = transform_inv(x)
                 x_pert = transform(w + delta)
+                # print(x, w, x_pert)
                 loss_a = torch.norm(x_pert - transform(w), p=2).cuda()
 
                 optimizer.zero_grad()

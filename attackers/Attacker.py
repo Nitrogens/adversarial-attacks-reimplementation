@@ -67,11 +67,11 @@ class Attacker(object):
             if target.item() == pred_perturbed.item():
                 # Attack failed
                 self.count['fail'] += 1
-                # print("\nfail")
+                print("\nfail")
             else:
                 # Attack successfully
                 self.count['success'] += 1
-                # print("\nsuccess")
+                print("\nsuccess")
 
     def generate_universal_pert(self, params):
         pass
